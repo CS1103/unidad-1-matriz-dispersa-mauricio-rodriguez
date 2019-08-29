@@ -1,0 +1,3 @@
+C:/Users/mauri/Documents/GitHub/unidad-1-matriz-dispersa-mauricio-rodriguez/cmake-build-debug/CMakeFiles/unidad_1_matriz_dispersa_mauricio_rodriguez.dir
+C:/Users/mauri/Documents/GitHub/unidad-1-matriz-dispersa-mauricio-rodriguez/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/mauri/Documents/GitHub/unidad-1-matriz-dispersa-mauricio-rodriguez/cmake-build-debug/CMakeFiles/rebuild_cache.dir
