@@ -4,5 +4,6 @@
 CMakeFiles/unidad_1_matriz_dispersa_mauricio_rodriguez.dir/MatrizDispersa.cpp.obj: ../MatrizDispersa.cpp
 CMakeFiles/unidad_1_matriz_dispersa_mauricio_rodriguez.dir/MatrizDispersa.cpp.obj: ../MatrizDispersa.h
 
+CMakeFiles/unidad_1_matriz_dispersa_mauricio_rodriguez.dir/main.cpp.obj: ../MatrizDispersa.h
 CMakeFiles/unidad_1_matriz_dispersa_mauricio_rodriguez.dir/main.cpp.obj: ../main.cpp
 

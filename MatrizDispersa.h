@@ -7,8 +7,10 @@
 
 typedef int tipoEntero;
 
-#include <time.h>
+#include <ctime>
 #include <cstdlib>
+#include <iostream>
+using namespace std;
 class MatrizDispersa {
 private:
     int c_filas;int  dispersion; int c_columnas;
@@ -20,8 +22,9 @@ public:
     MatrizDispersa();
     MatrizDispersa(int &, int &);
     int operator[](const int &);
-    MatrizDispersa &operator+(MatrizDispersa &);
-
+    friend MatrizDispersa operator+(const MatrizDispersa &,const MatrizDispersa &);
+    void rellenar();
+    void imprimirMatriz();
     virtual ~MatrizDispersa();
 };
 
