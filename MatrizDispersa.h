@@ -7,6 +7,7 @@
 
 typedef int tipoEntero;
 
+#include <vector>
 #include <ctime>
 #include <cstdlib>
 #include <iostream>
@@ -20,11 +21,13 @@ private:
     tipoEntero *vector_pColumnas;
 public:
     MatrizDispersa();
-    MatrizDispersa(int &, int &);
+    MatrizDispersa(const int &,const  int &);
     int operator[](const int &);
     friend MatrizDispersa operator+(const MatrizDispersa &,const MatrizDispersa &);
     void rellenar();
     void imprimirMatriz();
+    void mergeSort(int A[],int p,int r,int B[]);
+    void merge(int A[],int p,int q,int r,int B[]);
     virtual ~MatrizDispersa();
 };
 
