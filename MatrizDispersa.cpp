@@ -25,11 +25,8 @@ int MatrizDispersa::operator[](const int &) {
     return 0;
 }
 
-MatrizDispersa::MatrizDispersa():c_filas(0),c_columnas(0){
-    vector_pColumnas= nullptr;
-    vector_pFilas= nullptr;
-    vector_valores = nullptr;
-}
+MatrizDispersa::MatrizDispersa():c_filas(0),c_columnas(0),c_noNulos(0),vector_valores(nullptr),
+vector_pColumnas(nullptr),vector_pFilas(nullptr),dispersion(0){}
 
 void MatrizDispersa::rellenar() {
     //se asignan valores del 1 al 99 a la matriz
@@ -45,8 +42,12 @@ void MatrizDispersa::rellenar() {
 void MatrizDispersa::imprimirMatriz() {
     int sup=0;
     int contador=0;
-    int i_temporal=0;
     //se cuenta cantidad de valores en la fila sup
+    //impresion prueba
+    cout<<"valores no nulos: "<<endl;
+    for(int i=0;i<c_noNulos;i++)
+        cout<<vector_valores[i]<<"["<<vector_pFilas[i]<<","<<vector_pColumnas[i]<<"] ";
+    cout<<endl;
     for (int i=0;i<c_noNulos;i++)
         if (vector_pFilas[i]==sup)
             contador++;
@@ -54,22 +55,29 @@ void MatrizDispersa::imprimirMatriz() {
     //se asignan la posicion de columna del valor al vector temporal
     auto *temporal= new tipoEntero[contador];
     auto *row_index= new tipoEntero[contador];
+    contador =0;
     for (int i=0;i<c_noNulos;i++){
         if (vector_pFilas[i]==sup){
-            temporal[i_temporal]=vector_pColumnas[i];
-            row_index[i_temporal]=i;
-            i_temporal++;
+            temporal[contador]=vector_pColumnas[i];
+            row_index[contador]=i;
+            contador++;
         }
     }
+    //prueba
+    cout<<"cantidad de no nulos "<<c_noNulos<<endl;
+    cout<<"cantidad no nulos en fila "<<sup<<": "<<contador<<endl;
+    for (int i=0;i<contador;i++)
+        cout<<"["<<sup<<","<<temporal[i]<<"]"<<" c= "<<row_index[i]<<" v= "<<vector_valores[row_index[i]]<<" || ";
+    cout<<endl;
     // se ordena la matriz temporal con su respectivo indice guardado
     MatrizDispersa::mergeSort(temporal,0,contador,row_index);
-    // se imprime
-    cout<<"cantidad de no nulos"<<c_noNulos<<endl;
-   cout<<"cantidad no nulos en fila"<<sup<<": "<<contador<<endl;
+    // se imprime ordenado
+    cout<<"cantidad de no nulos "<<c_noNulos<<endl;
+   cout<<"cantidad no nulos en fila "<<sup<<": "<<contador<<endl;
    for (int i=0;i<contador;i++)
-       cout<<"["<<sup<<","<<temporal[i]<<"]"<<" ";
+       cout<<"["<<sup<<","<<temporal[i]<<"]"<<" c= "<<row_index[i]<<" v= "<<vector_valores[row_index[i]]<<" || ";
 
-    delete []temporal;
+    delete [] temporal;
 }
 
 void MatrizDispersa::mergeSort(int *A, int p, int r,int *B) {
@@ -108,13 +116,13 @@ void MatrizDispersa::merge(int *A, int p,int q, int r,int*B){
         {
             if(L[i]<R[j])
             {
+                B[k]=L1[i];
                 A[k]=L[i++];
-                B[k]=L1[i++];
             }
             else
             {
+                B[k]=R1[j];
                 A[k]=R[j++];
-                B[k]=R1[j++];
             }
         }
         //If Left Array L[] has more elements than Right Array R[]
@@ -122,16 +130,16 @@ void MatrizDispersa::merge(int *A, int p,int q, int r,int*B){
         // reamining elements of L[] into A[]
         while(i<n1)
         {
+            B[k]=L1[i];
             A[k++]=L[i++];
-            B[k++]=L1[i++];
         }
         //If Right Array R[] has more elements than Left Array L[]
         //then it will put all the
         // reamining elements of L[] into A[]
         while(j<n2)
         {
+            B[k]=R1[j];
             A[k++]=R[j++];
-            B[k++]=R1[j++];
         }
 }
 
