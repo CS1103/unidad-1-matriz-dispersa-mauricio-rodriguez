@@ -11,9 +11,9 @@ int main() {
     //MatrizDispersa M2;
     //MatrizDispersa M3= M1+M2;
     //string resultado;
-    auto *m1= new MatrizDispersa(10,10);
-    m1->rellenar();
-    m1->imprimirMatriz();
-    delete m1;
+    MatrizDispersa m1(10,10);
+    m1.rellenar();
+    m1.ordenarMatriz();
+    MatrizDispersa M2= m1.transpuesta();
     return 0;
 }

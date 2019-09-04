@@ -6,10 +6,6 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/mauri/Documents/GitHub/unidad-1-matriz-dispersa-mauricio-rodriguez/MatrizDispersa.cpp
-MatrizDispersa.h
-C:/Users/mauri/Documents/GitHub/unidad-1-matriz-dispersa-mauricio-rodriguez/MatrizDispersa.h
-
 C:/Users/mauri/Documents/GitHub/unidad-1-matriz-dispersa-mauricio-rodriguez/MatrizDispersa.h
 vector
 -
@@ -18,5 +14,15 @@ ctime
 cstdlib
 -
 iostream
+-
+
+C:/Users/mauri/Documents/GitHub/unidad-1-matriz-dispersa-mauricio-rodriguez/main.cpp
+iostream
+-
+cassert
+-
+MatrizDispersa.h
+C:/Users/mauri/Documents/GitHub/unidad-1-matriz-dispersa-mauricio-rodriguez/MatrizDispersa.h
+time.h
 -
 
