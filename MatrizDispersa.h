@@ -23,7 +23,7 @@ private:
     int sec_index;
     void mergeSort(tipoEntero A[],int p,tipoEntero r,tipoEntero B[]);
     void merge(tipoEntero A[],int p,tipoEntero q,tipoEntero r,tipoEntero B[]);
-    int getElement(int firstIndex,int secondIndex);
+    int getElement(int firstIndex,int secondIndex) const;
 public:
     MatrizDispersa();
     MatrizDispersa(const long int &,const  long int &);

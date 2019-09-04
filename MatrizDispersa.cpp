@@ -18,10 +18,26 @@ MatrizDispersa::~MatrizDispersa() {
     delete [] vector_valores;
 }
 MatrizDispersa operator+(const MatrizDispersa &M1, const MatrizDispersa &M2) {
+    MatrizDispersa M3;
+    int suma_index=0;
+    for (int i=0;i<M1.c_filas;i++)
+        for (int j=0;j<M1.c_columnas;j++)
+            if (M1.getElement(i,j) !=0 || M2.getElement(i,j)!=0)
+                M3.c_noNulos++;
+            
+    M3.vector_valores=new tipoEntero[M3.c_noNulos];
+    M3.vector_pColumnas = new tipoEntero[M3.c_noNulos];
+    M3.vector_pFilas= new tipoEntero[M3.c_noNulos];
     if (M1.c_filas ==M2.c_filas && M1.c_columnas==M2.c_columnas){
-        MatrizDispersa M3;
-        for (unsigned int i=0;i<M1.c_columnas;i++){
-
+        for (int i=0;i<M1.c_filas;i++){
+            for (int j=0;j<M2.c_columnas;j++){
+                if (M1.getElement(i,j)==0 && M2.getElement(i,j)){}
+                else {
+                    M3.vector_valores[suma_index]=M1.getElement(i,j)+M2.getElement(i,j);
+                    M3.vector_pFilas[suma_index]=i;
+                    M3.vector_pColumnas[suma_index++]=j;
+                }
+            }
         }
         return M3;
     }
@@ -139,10 +155,12 @@ int* MatrizDispersa::operator[](const int & second_index) {
 }
 
 
-int MatrizDispersa::getElement(int firstIndex, int secondIndex) {
+int MatrizDispersa::getElement(int firstIndex, int secondIndex) const {
     for (unsigned int i=0;i<c_noNulos;i++)
-        if(  vector_pFilas[i]==firstIndex &&vector_pColumnas[i]==secondIndex)
+        if(vector_pFilas[i]==firstIndex &&vector_pColumnas[i]==secondIndex)
             return vector_valores[i];
+        else
+            return 0;
     return 0;
 }
 
