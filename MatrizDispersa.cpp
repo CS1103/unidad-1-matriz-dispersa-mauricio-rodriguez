@@ -184,3 +184,16 @@ int* MatrizDispersa::operator[](const int & second_index) {
     sec_index=second_index;
     return ((*this)[second_index]);
 }
+
+MatrizDispersa operator*(const int & valor, const MatrizDispersa & M1) {
+    MatrizDispersa temp;
+    temp.vector_valores=new tipoEntero[M1.c_noNulos];
+    temp.vector_pColumnas = new tipoEntero[M1.c_noNulos];
+    temp.vector_pFilas= new tipoEntero[M1.c_noNulos];
+    for (int i=0;i<M1.c_noNulos;i++){
+        temp.vector_valores[i]=M1.vector_valores[i]*valor;
+        temp.vector_pColumnas[i]=M1.vector_pColumnas[i];
+        temp.vector_pFilas[i]=M1.vector_pFilas[i];
+    }
+    return temp;
+}

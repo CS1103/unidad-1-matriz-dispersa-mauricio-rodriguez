@@ -29,6 +29,7 @@ public:
     MatrizDispersa(const long int &,const  long int &);
     int* operator[](const int &);
     int operator[](const short int &);
+    friend MatrizDispersa operator *(const int &,const MatrizDispersa &);
     friend MatrizDispersa operator*(const MatrizDispersa &, const MatrizDispersa &);
     friend MatrizDispersa operator+(const MatrizDispersa &,const MatrizDispersa &);
     void rellenar();
