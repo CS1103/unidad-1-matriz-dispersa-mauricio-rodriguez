@@ -17,33 +17,6 @@ MatrizDispersa::~MatrizDispersa() {
     delete [] vector_pFilas;
     delete [] vector_valores;
 }
-MatrizDispersa operator+(const MatrizDispersa &M1, const MatrizDispersa &M2) {
-    MatrizDispersa M3;
-    int suma_index=0;
-    for (int i=0;i<M1.c_filas;i++)
-        for (int j=0;j<M1.c_columnas;j++)
-            if (M1.getElement(i,j) !=0 || M2.getElement(i,j)!=0)
-                M3.c_noNulos++;
-            
-    M3.vector_valores=new tipoEntero[M3.c_noNulos];
-    M3.vector_pColumnas = new tipoEntero[M3.c_noNulos];
-    M3.vector_pFilas= new tipoEntero[M3.c_noNulos];
-    if (M1.c_filas ==M2.c_filas && M1.c_columnas==M2.c_columnas){
-        for (int i=0;i<M1.c_filas;i++){
-            for (int j=0;j<M2.c_columnas;j++){
-                if (M1.getElement(i,j)==0 && M2.getElement(i,j)){}
-                else {
-                    M3.vector_valores[suma_index]=M1.getElement(i,j)+M2.getElement(i,j);
-                    M3.vector_pFilas[suma_index]=i;
-                    M3.vector_pColumnas[suma_index++]=j;
-                }
-            }
-        }
-        return M3;
-    }
-    else
-        throw logic_error("Las matrices tienen diferentes dimensiones");
-}
 
 MatrizDispersa::MatrizDispersa():c_filas(0),c_columnas(0),c_noNulos(0),vector_valores(nullptr),
 vector_pColumnas(nullptr),vector_pFilas(nullptr),dispersion(0){}
@@ -64,7 +37,7 @@ void MatrizDispersa::rellenar() {
     }
 }
 
-void MatrizDispersa::ordenarMatriz() {
+/*void MatrizDispersa::ordenarMatriz() {
     {
     long int sup=0;
     tipoEntero contador=0;
@@ -91,7 +64,7 @@ void MatrizDispersa::ordenarMatriz() {
     delete [] row_index;
     }
 }
-
+*/
 void MatrizDispersa::mergeSort(tipoEntero *A, int p, tipoEntero r,tipoEntero *B) {
     tipoEntero q;
     q = (p + r) / 2;
@@ -107,53 +80,34 @@ void MatrizDispersa::merge(tipoEntero *A, int p,tipoEntero q, tipoEntero r,tipoE
         n2=r-q;
         tipoEntero L[n1]; tipoEntero R[n2];
         tipoEntero L1[n1]; tipoEntero R1[n2];
-        for(i=0;i<n1;i++)
-        {
+        for(i=0;i<n1;i++){
             L[i]=A[p+i];
             L1[i]=B[p+i];
         }
-        for(j=0;j<n2;j++)
-        {
+        for(j=0;j<n2;j++){
             R[j]=A[q+j+1];
             R1[j]=B[q+j+1];
         }
         i=0,j=0;
-        for(k=p;i<n1&&j<n2;k++)
-        {
-            if(L[i]<R[j])
-            {
+        for(k=p;i<n1&&j<n2;k++){
+            if(L[i]<R[j]){
                 B[k]=L1[i];
                 A[k]=L[i++];
             }
-            else
-            {
+            else{
                 B[k]=R1[j];
                 A[k]=R[j++];
             }
         }
-        while(i<n1)
-        {
+        while(i<n1){
             B[k]=L1[i];
             A[k++]=L[i++];
         }
-        while(j<n2)
-        {
+        while(j<n2){
             B[k]=R1[j];
             A[k++]=R[j++];
         }
 }
-
-int MatrizDispersa::operator[](const short int & first_index) {
-    cout<<first_index<<sec_index;
-    return getElement(first_index, sec_index);
-}
-
-
-int* MatrizDispersa::operator[](const int & second_index) {
-    sec_index=second_index;
-    return ((*this)[second_index]);
-}
-
 
 int MatrizDispersa::getElement(int firstIndex, int secondIndex) const {
     for (unsigned int i=0;i<c_noNulos;i++)
@@ -175,4 +129,58 @@ MatrizDispersa MatrizDispersa::transpuesta() {
         temp.vector_pFilas[i]=vector_pColumnas[i];
     }
     return temp;
+}
+
+MatrizDispersa operator*(const MatrizDispersa & M1, const MatrizDispersa & M2) {
+    if (M1.c_columnas==M2.c_filas){
+        MatrizDispersa temp;
+        for (int i=0;i<M1.c_filas;i++){
+            for (int j=0;j<M2.c_columnas;j++){
+                M1.getElement(i,j)*M2.getElement(j,i);
+            }
+        }
+        temp.vector_valores=new tipoEntero[c_noNulos];
+        temp.vector_pColumnas = new tipoEntero[c_noNulos];
+        temp.vector_pFilas= new tipoEntero[c_noNulos];
+        return temp;
+    }
+    else throw logic_error("No es posible efectuar la multiplicacion");
+
+}
+MatrizDispersa operator+(const MatrizDispersa &M1, const MatrizDispersa &M2) {
+    MatrizDispersa M3;
+    int suma_index=0;
+    for (int i=0;i<M1.c_filas;i++)
+        for (int j=0;j<M1.c_columnas;j++)
+            if (M1.getElement(i,j) !=0 || M2.getElement(i,j)!=0)
+                M3.c_noNulos++;
+
+    M3.vector_valores=new tipoEntero[M3.c_noNulos];
+    M3.vector_pColumnas = new tipoEntero[M3.c_noNulos];
+    M3.vector_pFilas= new tipoEntero[M3.c_noNulos];
+    if (M1.c_filas ==M2.c_filas && M1.c_columnas==M2.c_columnas){
+        for (int i=0;i<M1.c_filas;i++){
+            for (int j=0;j<M2.c_columnas;j++){
+                if (M1.getElement(i,j)==0 && M2.getElement(i,j)){}
+                else {
+                    M3.vector_valores[suma_index]=M1.getElement(i,j)+M2.getElement(i,j);
+                    M3.vector_pFilas[suma_index]=i;
+                    M3.vector_pColumnas[suma_index++]=j;
+                }
+            }
+        }
+        return M3;
+    }
+    else
+        throw logic_error("Las matrices tienen diferentes dimensiones");
+}
+int MatrizDispersa::operator[](const short int & first_index) {
+    cout<<first_index<<sec_index;
+    return getElement(first_index, sec_index);
+}
+
+
+int* MatrizDispersa::operator[](const int & second_index) {
+    sec_index=second_index;
+    return ((*this)[second_index]);
 }
