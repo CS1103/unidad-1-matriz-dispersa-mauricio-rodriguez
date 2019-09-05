@@ -37,78 +37,6 @@ void MatrizDispersa::rellenar() {
     }
 }
 
-/*void MatrizDispersa::ordenarMatriz() {
-    {
-    long int sup=0;
-    tipoEntero contador=0;
-    for (tipoEntero i=0;i<c_noNulos;i++)
-        if (vector_pFilas[i]==sup)
-            contador++;
-    //se asignan la posicion de columna del valor al vector temporal
-    auto *temporal= new tipoEntero[contador];
-    auto *row_index= new tipoEntero[contador];
-    contador =0;
-    for (tipoEntero i=0;i<c_noNulos;i++){
-        if (vector_pFilas[i]==sup){
-            temporal[contador]=vector_pColumnas[i];
-            row_index[contador]=i;
-            contador++;
-        }
-    }
-    // se ordena la matriz temporal con su respectivo indice guardado
-    MatrizDispersa::mergeSort(temporal,0,contador-1,row_index);
-   for (tipoEntero i=0;i<contador;i++)
-       cout<<"["<<sup<<","<<temporal[i]<<"]"<<" v= "<<vector_valores[row_index[i]]<<" || ";
-
-    delete [] temporal;
-    delete [] row_index;
-    }
-}
-*/
-void MatrizDispersa::mergeSort(tipoEntero *A, int p, tipoEntero r,tipoEntero *B) {
-    tipoEntero q;
-    q = (p + r) / 2;
-    if (p < r) {
-        mergeSort(A, p, q,B);
-        mergeSort(A, q + 1, r,B);
-        merge(A, p, q, r,B);
-    }
-}
-void MatrizDispersa::merge(tipoEntero *A, int p,tipoEntero q, tipoEntero r,tipoEntero *B){
-        tipoEntero n1,n2,i,j,k;
-        n1=q-p+1;
-        n2=r-q;
-        tipoEntero L[n1]; tipoEntero R[n2];
-        tipoEntero L1[n1]; tipoEntero R1[n2];
-        for(i=0;i<n1;i++){
-            L[i]=A[p+i];
-            L1[i]=B[p+i];
-        }
-        for(j=0;j<n2;j++){
-            R[j]=A[q+j+1];
-            R1[j]=B[q+j+1];
-        }
-        i=0,j=0;
-        for(k=p;i<n1&&j<n2;k++){
-            if(L[i]<R[j]){
-                B[k]=L1[i];
-                A[k]=L[i++];
-            }
-            else{
-                B[k]=R1[j];
-                A[k]=R[j++];
-            }
-        }
-        while(i<n1){
-            B[k]=L1[i];
-            A[k++]=L[i++];
-        }
-        while(j<n2){
-            B[k]=R1[j];
-            A[k++]=R[j++];
-        }
-}
-
 int MatrizDispersa::getElement(int firstIndex, int secondIndex) const {
     for (unsigned int i=0;i<c_noNulos;i++)
         if(vector_pFilas[i]==firstIndex &&vector_pColumnas[i]==secondIndex)
@@ -123,6 +51,8 @@ MatrizDispersa MatrizDispersa::transpuesta() {
     temp.vector_valores=new tipoEntero[c_noNulos];
     temp.vector_pColumnas = new tipoEntero[c_noNulos];
     temp.vector_pFilas= new tipoEntero[c_noNulos];
+    temp.c_filas=c_columnas;
+    temp.c_columnas=c_filas;
     for (tipoEntero i=0;i<c_noNulos;i++){
         temp.vector_valores[i]=vector_valores[i];
         temp.vector_pColumnas[i]=vector_pFilas[i];
@@ -132,16 +62,32 @@ MatrizDispersa MatrizDispersa::transpuesta() {
 }
 
 MatrizDispersa operator*(const MatrizDispersa & M1, const MatrizDispersa & M2) {
+    vector<tipoEntero> temporal_valores;
+    vector<tipoEntero> temporal_filas;
+    vector<tipoEntero> temporal_columnas;
+    int valor=0;
     if (M1.c_columnas==M2.c_filas){
         MatrizDispersa temp;
-        for (int i=0;i<M1.c_filas;i++){
-            for (int j=0;j<M2.c_columnas;j++){
-                M1.getElement(i,j)*M2.getElement(j,i);
+        for (int k=0;k<M1.c_filas;k++) {
+            for (int i = 0; i < M1.c_filas; i++) {
+                for (int j = 0; j < M2.c_columnas; j++) {
+                    valor += M1.getElement(k, j) * M2.getElement(j, i);
+                }
+                if (valor != 0) {
+                    temporal_valores[i] = valor;
+                    temporal_filas[i] = k;
+                    temporal_columnas[i]=i;
+                }
             }
         }
-        temp.vector_valores=new tipoEntero[c_noNulos];
-        temp.vector_pColumnas = new tipoEntero[c_noNulos];
-        temp.vector_pFilas= new tipoEntero[c_noNulos];
+        temp.vector_valores=new tipoEntero[temporal_valores.size()];
+        temp.vector_pColumnas = new tipoEntero[temporal_valores.size()];
+        temp.vector_pFilas= new tipoEntero[temporal_valores.size()];
+        for (int i=0;i<temporal_valores.size();i++){
+            temp.vector_pColumnas[i]=temporal_columnas[i];
+            temp.vector_pFilas[i]=temporal_filas[i];
+            temporal_valores[i]=temporal_valores[i];
+        }
         return temp;
     }
     else throw logic_error("No es posible efectuar la multiplicacion");

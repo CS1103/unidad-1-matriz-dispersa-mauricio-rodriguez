@@ -13,7 +13,8 @@ int main() {
     //string resultado;
     MatrizDispersa m1(10,10);
     m1.rellenar();
-    m1.ordenarMatriz();
-    MatrizDispersa M2= m1.transpuesta();
+    MatrizDispersa m2 =m1.transpuesta();
+    MatrizDispersa m3=5*m1;
+    cout<<m1.getElement(1,0);
     return 0;
 }

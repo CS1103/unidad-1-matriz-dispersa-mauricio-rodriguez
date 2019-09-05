@@ -21,9 +21,7 @@ private:
     tipoEntero *vector_pFilas;
     tipoEntero *vector_pColumnas;
     int sec_index;
-    void mergeSort(tipoEntero A[],int p,tipoEntero r,tipoEntero B[]);
-    void merge(tipoEntero A[],int p,tipoEntero q,tipoEntero r,tipoEntero B[]);
-    int getElement(int firstIndex,int secondIndex) const;
+
 public:
     MatrizDispersa();
     MatrizDispersa(const long int &,const  long int &);
@@ -33,7 +31,7 @@ public:
     friend MatrizDispersa operator*(const MatrizDispersa &, const MatrizDispersa &);
     friend MatrizDispersa operator+(const MatrizDispersa &,const MatrizDispersa &);
     void rellenar();
-    void ordenarMatriz();
+    int getElement(int firstIndex,int secondIndex) const;
     virtual ~MatrizDispersa();
     MatrizDispersa transpuesta();
 };
