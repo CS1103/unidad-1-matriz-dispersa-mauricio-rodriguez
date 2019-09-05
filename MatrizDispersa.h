@@ -23,13 +23,14 @@ public:
     MatrizDispersa();
     MatrizDispersa(const long int &,const  long int &);
     MatrizDispersa(const long int &,const  long int &,const long int &);
+
     int getColumna(){return c_columnas;}
     int getFila(){return c_filas;}
     friend MatrizDispersa operator *(const int &,const MatrizDispersa &);
     friend MatrizDispersa operator*(const MatrizDispersa &, const MatrizDispersa &);
     friend MatrizDispersa operator+(const MatrizDispersa &,const MatrizDispersa &);
     void rellenar();
-    int getElement(int &firstIndex,int &secondIndex)const;
+    int getElement(const int &firstIndex,const int &secondIndex)const;
     virtual ~MatrizDispersa();
     void setAllValues(const int &);
     MatrizDispersa transpuesta();
