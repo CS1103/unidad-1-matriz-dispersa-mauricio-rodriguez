@@ -11,12 +11,12 @@ int main() {
     //MatrizDispersa M2;
     //MatrizDispersa M3= M1+M2;
     //string resultado;
-    MatrizDispersa m1(3,5);
+    MatrizDispersa m1(5,5);
     m1.rellenar();
     MatrizDispersa m2 =m1.transpuesta();
     MatrizDispersa m3=5*m1;
     MatrizDispersa m4= m1+m3;
-
+    MatrizDispersa m5= m3*m4;
     for (int i=0;i<m1.getFila();i++){
         for (int j=0;j<m1.getColumna();j++){
             cout<<m1.getElement(i,j)<<" ";
@@ -38,9 +38,16 @@ int main() {
         cout<<endl;
     }
     cout<<endl<<"Matriz 4: "<<endl;
-    for (int i=0;i<m3.getFila();i++){
-        for (int j=0;j<m3.getColumna();j++){
-            cout<<m3.getElement(i,j)<<" ";
+    for (int i=0;i<m4.getFila();i++){
+        for (int j=0;j<m4.getColumna();j++){
+            cout<<m4.getElement(i,j)<<" ";
+        }
+        cout<<endl;
+    }
+    cout<<endl<<"Matriz 5: "<<endl;
+    for (int i=0;i<m5.getFila();i++){
+        for (int j=0;j<m5.getColumna();j++){
+            cout<<m5.getElement(i,j)<<" ";
         }
         cout<<endl;
     }

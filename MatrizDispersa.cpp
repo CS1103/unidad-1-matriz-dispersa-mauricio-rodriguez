@@ -6,15 +6,14 @@
 
 MatrizDispersa::MatrizDispersa(const long int &cFilas,const long int &cColumnas) : c_filas(cFilas), c_columnas(cColumnas) {
     dispersion=10+rand()%40;
-    c_noNulos=int((dispersion*c_filas*c_columnas)/100);
 }
-
 MatrizDispersa::~MatrizDispersa() {
 }
 
 MatrizDispersa::MatrizDispersa():c_filas(0),c_columnas(0),c_noNulos(0),dispersion(0){}
 
 void MatrizDispersa::rellenar() {
+    c_noNulos=int((dispersion*c_filas*c_columnas)/100);
     //se asignan valores del 1 al 99 a la matriz
     for (tipoEntero i=0;i<c_noNulos;i++){
         vector_valores.push_back(rand()%90);
@@ -50,9 +49,9 @@ MatrizDispersa MatrizDispersa::transpuesta() {
 }
 
 MatrizDispersa operator*(const MatrizDispersa & M1, const MatrizDispersa & M2) {
-    MatrizDispersa temp;
     int valor=0;
     if (M1.c_columnas==M2.c_filas){
+        MatrizDispersa temp(M1.c_filas,M2.c_columnas);
         for (int k=0;k<M1.c_filas;k++) {
             for (int i = 0; i < M1.c_filas; i++) {
                 for (int j = 0; j < M2.c_columnas; j++) {
@@ -74,7 +73,7 @@ MatrizDispersa operator+(const MatrizDispersa &M1, const MatrizDispersa &M2) {
     MatrizDispersa M3(M1.c_filas,M1.c_columnas);
     if (M1.c_filas ==M2.c_filas && M1.c_columnas==M2.c_columnas){
         for (int i=0;i<M1.c_filas;i++){
-            for (int j=0;j<M2.c_columnas;j++){
+            for (int j=0;j<M1.c_columnas;j++){
                 if (M1.getElement(i,j)==0 && M2.getElement(i,j)==0){}
                 else {
                     M3.vector_valores.push_back(M1.getElement(i,j)+M2.getElement(i,j));
