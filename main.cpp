@@ -15,6 +15,6 @@ int main() {
     m1.rellenar();
     MatrizDispersa m2 =m1.transpuesta();
     MatrizDispersa m3=5*m1;
-    cout<<m1.getElement(1,0);
+    MatrizDispersa m4 = m3*m1;
     return 0;
 }

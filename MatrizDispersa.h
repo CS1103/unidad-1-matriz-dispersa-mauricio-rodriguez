@@ -6,7 +6,6 @@
 #define UNIDAD_1_MATRIZ_DISPERSA_MAURICIO_RODRIGUEZ_MATRIZDISPERSA_H
 
 typedef unsigned long int tipoEntero;
-typedef unsigned int  tipoEntero2;
 #include <vector>
 #include <ctime>
 #include <cstdlib>
@@ -17,11 +16,9 @@ private:
     int c_filas;int  dispersion;
     int c_columnas;
     tipoEntero c_noNulos;
-    tipoEntero *vector_valores;
-    tipoEntero *vector_pFilas;
-    tipoEntero *vector_pColumnas;
-    int sec_index;
-
+    vector<tipoEntero>vector_valores;
+    vector<tipoEntero>vector_pFilas;
+    vector<tipoEntero>vector_pColumnas;
 public:
     MatrizDispersa();
     MatrizDispersa(const long int &,const  long int &);
@@ -31,8 +28,9 @@ public:
     friend MatrizDispersa operator*(const MatrizDispersa &, const MatrizDispersa &);
     friend MatrizDispersa operator+(const MatrizDispersa &,const MatrizDispersa &);
     void rellenar();
-    int getElement(int firstIndex,int secondIndex) const;
+    int getElement(int &firstIndex,int &secondIndex)const;
     virtual ~MatrizDispersa();
+    void setAllValues(const int &);
     MatrizDispersa transpuesta();
 };
 
