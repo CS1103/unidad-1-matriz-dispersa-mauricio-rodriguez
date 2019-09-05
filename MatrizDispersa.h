@@ -22,8 +22,9 @@ private:
 public:
     MatrizDispersa();
     MatrizDispersa(const long int &,const  long int &);
-    int* operator[](const int &);
-    int operator[](const short int &);
+    MatrizDispersa(const long int &,const  long int &,const long int &);
+    int getColumna(){return c_columnas;}
+    int getFila(){return c_filas;}
     friend MatrizDispersa operator *(const int &,const MatrizDispersa &);
     friend MatrizDispersa operator*(const MatrizDispersa &, const MatrizDispersa &);
     friend MatrizDispersa operator+(const MatrizDispersa &,const MatrizDispersa &);

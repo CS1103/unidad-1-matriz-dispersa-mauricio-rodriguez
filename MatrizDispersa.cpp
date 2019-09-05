@@ -40,9 +40,7 @@ int MatrizDispersa::getElement(int &firstIndex, int &secondIndex)const{
 }
 
 MatrizDispersa MatrizDispersa::transpuesta() {
-    MatrizDispersa temp;
-    temp.c_filas=c_columnas;
-    temp.c_columnas=c_filas;
+    MatrizDispersa temp(c_columnas,c_filas,c_noNulos);
     for (tipoEntero i=0;i<c_noNulos;i++){
         temp.vector_valores.push_back(vector_valores[i]);
         temp.vector_pColumnas.push_back(vector_pFilas[i]);
@@ -73,7 +71,7 @@ MatrizDispersa operator*(const MatrizDispersa & M1, const MatrizDispersa & M2) {
 
 }
 MatrizDispersa operator+(const MatrizDispersa &M1, const MatrizDispersa &M2) {
-    MatrizDispersa M3;
+    MatrizDispersa M3(M1.c_filas,M1.c_columnas);
     if (M1.c_filas ==M2.c_filas && M1.c_columnas==M2.c_columnas){
         for (int i=0;i<M1.c_filas;i++){
             for (int j=0;j<M2.c_columnas;j++){
@@ -85,6 +83,7 @@ MatrizDispersa operator+(const MatrizDispersa &M1, const MatrizDispersa &M2) {
                 }
             }
         }
+        M3.c_noNulos=M3.vector_valores.size();
         return M3;
     }
     else
@@ -92,7 +91,7 @@ MatrizDispersa operator+(const MatrizDispersa &M1, const MatrizDispersa &M2) {
 }
 
 MatrizDispersa operator*(const int & valor, const MatrizDispersa & M1) {
-    MatrizDispersa temp;
+    MatrizDispersa temp(M1.c_filas,M1.c_columnas,M1.c_noNulos);
     for (int i=0;i<M1.c_noNulos;i++){
         temp.vector_valores.push_back(M1.vector_valores[i]*valor);
         temp.vector_pColumnas.push_back(M1.vector_pColumnas[i]);
@@ -111,3 +110,6 @@ void MatrizDispersa::setAllValues(const int & valor) {
             vector_valores[i]= valor;
         }
 }
+
+MatrizDispersa::MatrizDispersa(const long int &cFilas, const long int &cColumnas, const long int &cNoNulos):
+c_filas(cFilas),c_columnas(cColumnas),c_noNulos(cNoNulos){}
